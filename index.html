@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title id="title">Mathe Wochenaufgaben</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        body {
+        margin: 0;
+        }
+
+        iframe {
+            border: 0;
+            width: 99%;
+            min-height: max-content;
+            height: 100%;
+            top:0;
+            left:0;
+        
+            position:fixed; 
+            bottom:0px; 
+            right:0px; 
+            margin:0; 
+            padding:0; 
+            overflow:hidden;
+        }
+
+        #hero-bottom {
+            height: 10%;
+            margin: 0 auto !important;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            #hero-bottom {
+                height: 30%;
+                margin-bottom: 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="pdfViewer" class="h-100-I">
+        <iframe id="frame_pdf" src=""></iframe>
+    </div>
+
+    <div id="hero-bottom" class="navbar fixed-bottom navbar-light bg-dark" style="margin-bottom: 50px">
+        <div class="row w-100 h-100 ">
+            <div class="col-md-2 col-sm-12">
+                <div class="btn-group btn-block h-100 dropup" id="dropupmenu">
+                    <button id="dropdownMenuButton" type="button" class="btn btn-block btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span id="dropdownKlasse">13</span>. Klasse
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" onclick="changeClass(5)">Klasse 5</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(6)">Klasse 6</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(7)">Klasse 7</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(8)">Klasse 8</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(9)">Klasse 9</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(10)">Klasse 10</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(11)">Klasse 11</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(12)">Klasse 12</a>
+                        <a class="dropdown-item" href="#" onclick="changeClass(13)">Klasse 13</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <button type="button" name="" id="last" onclick="changeWeek(false)" class="btn btn-dark btn-block h-100">Letzte Woche</button>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                    <button type="button" name="" id="next" onclick="changeWeek(true)" class="btn btn-dark btn-block h-100">Nächste Woche</button>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <a type="button" name="" id="toPDF" class="btn btn-success btn-block h-100" href=""><br>Wochenaufgabe <span id="weektask">loading</span> öffnen</a>
+                <!--<a name="" id="toPDF" class="btn btn-block  " href=""><p id="weekWord"></p></a>>-->
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+        var firstSchoolWeek = 33;
+        
+        var calenderWeek = parseInt(getWeekNumber(new Date())[1]);  console.log(calenderWeek);
+        var schoolWeek = calenderWeek-firstSchoolWeek;              console.log(schoolWeek);
+
+        var klasse = 13;
+        var PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20"+ schoolWeek +".pdf";
+
+        refreshPage();
+        
+        function refreshPage() {
+            $("#weektask").html(schoolWeek);
+            $("#dropdownKlasse").html(klasse);
+            refreshLink();
+
+
+
+            console.log(PDFLINK);
+            var iframe = document.getElementById('frame_pdf');
+            iframe.src = PDFLINK;
+            iframe.src = iframe.src;
+
+            var button = document.getElementById('toPDF');
+            button.href = PDFLINK;
+            button.href = button.href;
+        }
+
+        function changeWeek(forwards) {
+            if (forwards) {
+                schoolWeek++;
+            } else {
+                schoolWeek--;
+            }
+
+            refreshPage();
+        }
+
+        function changeClass(neueKlasse) {
+            console.log(neueKlasse)
+            klasse = neueKlasse;
+            console.log(klasse);
+
+            refreshPage();
+        }
+
+        function refreshLink() {
+            PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20"+ schoolWeek +".pdf";
+        }
+        
+        function getFirstSchoolWeek() {
+            $.getJSON("https://ferien-api.de/api/v1/holidays", function(data) {
+                console.log(data.result);
+            });
+        }
+
+        function getWeekNumber(d) {
+            // Copy date so don't modify original
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            // Set to nearest Thursday: current date + 4 - current day number
+            // Make Sunday's day number 7
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+            // Get first day of year
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+            // Calculate full weeks to nearest Thursday
+            var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+            // Return array of year and week number
+            return [d.getUTCFullYear(), weekNo];
+        }
+    </script>
+</body>
+</html>
