@@ -97,8 +97,8 @@
         var schoolWeek = calenderWeek - firstSchoolWeek;            console.log(schoolWeek);
         var klasse = 13;
 
-        var uriClass = url.searchParams.get("class");
-        var uriWeek = url.searchParams.get("week");
+        var uriClass = url.searchParams.get("klasse");
+        var uriWeek = url.searchParams.get("woche");
 
         var PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20"+ schoolWeek +".pdf";
 
@@ -110,7 +110,7 @@
         }
         if (uriClass == null && uriWeek == null) {
             window.location.pathname = "";
-            window.location.href=window.location.href + "?week=" + schoolWeek + "&class=" + klasse;
+            window.location.href=window.location.href + "?woche=" + schoolWeek + "&klasse=" + klasse;
             //window.location.reload(false);
         }
 
@@ -149,7 +149,7 @@
         }
 
         function refreshPage() {
-            window.location.href=window.location.href.split("?")[0] + "?week=" + schoolWeek + "&class=" + klasse;            
+            window.location.href=window.location.href.split("?")[0] + "?woche=" + schoolWeek + "&klasse=" + klasse;            
         }
 
         function getWeekNumber(d) {
