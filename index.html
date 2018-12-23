@@ -4,6 +4,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Wöchentlich wechselnde Matheaufgaben">
+    <meta name="developer" content="Malte Schink">
+    <meta name="author" content="Martin Lommatzsch">
 
     <title id="title">Mathe Wochenaufgaben</title>
 
@@ -91,11 +94,18 @@
     
     <script>
         var firstSchoolWeek = 33; //<-- Change this to the first calender week of the current school year
-        var calenderWeek = parseInt(getWeekNumber(new Date())[1]);  console.log(calenderWeek);
+        var calenderWeek = parseInt(getWeekNumber(new Date())[1]);  
+        calenderWeek = 1;
+        console.log(getWeekNumber(new Date())[0]);
         var url = new URL(window.location.href);
 
-        var schoolWeek = calenderWeek - firstSchoolWeek;            console.log(schoolWeek);
+        console.log("cal_week: " + calenderWeek);
+        var schoolWeek = calenderWeek - firstSchoolWeek;            
+        if (calenderWeek <= 1) {
+            schoolWeek = (52 - firstSchoolWeek);  
+        }
         var klasse = 13;
+        console.log("sch_week: " + schoolWeek);
 
         var uriClass = url.searchParams.get("klasse");
         var uriWeek = url.searchParams.get("woche");
@@ -150,14 +160,14 @@
             replacePDF();
         }
 
+        //obsolete function
         function refreshPage() {
             window.location.href=window.location.href.split("?")[0] + "?woche=" + schoolWeek + "&klasse=" + klasse;            
         }
 
         function replacePDF() {
             history.replaceState("","","?woche=" + schoolWeek + "&klasse=" + klasse);
-            loadPage()
-
+            loadPage();
         }
 
         function getWeekNumber(d) {
@@ -173,6 +183,7 @@
             // Return array of year and week number
             return [d.getUTCFullYear(), weekNo];
         }
+
     </script>
     
 </body>
