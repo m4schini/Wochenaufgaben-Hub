@@ -137,7 +137,8 @@
                 schoolWeek--;
             }
 
-            refreshPage();
+            replacePDF();
+            //refreshPage();
         }
 
         function changeClass(neueKlasse) {
@@ -145,11 +146,18 @@
             klasse = neueKlasse;
             console.log(klasse);
 
-            refreshPage();
+            //refreshPage();
+            replacePDF();
         }
 
         function refreshPage() {
             window.location.href=window.location.href.split("?")[0] + "?woche=" + schoolWeek + "&klasse=" + klasse;            
+        }
+
+        function replacePDF() {
+            history.replaceState("","","?woche=" + schoolWeek + "&klasse=" + klasse);
+            loadPage()
+
         }
 
         function getWeekNumber(d) {
