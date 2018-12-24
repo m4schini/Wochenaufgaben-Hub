@@ -94,15 +94,15 @@
     
     <script>
         var firstSchoolWeek = 33; //<-- Change this to the first calender week of the current school year
-        var calenderWeek = parseInt(getWeekNumber(new Date())[1]);  
+        var calenderWeek = parseInt(getWeekNumber(new Date())[1]);
         calenderWeek = 1;
         console.log(getWeekNumber(new Date())[0]);
         var url = new URL(window.location.href);
 
         console.log("cal_week: " + calenderWeek);
-        var schoolWeek = calenderWeek - firstSchoolWeek;            
+        var schoolWeek = calenderWeek - firstSchoolWeek;
         if (calenderWeek <= 1) {
-            schoolWeek = (52 - firstSchoolWeek);  
+        	schoolWeek = (52 - firstSchoolWeek);
         }
         var klasse = 13;
         console.log("sch_week: " + schoolWeek);
@@ -110,80 +110,79 @@
         var uriClass = url.searchParams.get("klasse");
         var uriWeek = url.searchParams.get("woche");
 
-        var PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20"+ schoolWeek +".pdf";
+        var PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20" + schoolWeek + ".pdf";
 
         if (uriClass != null) {
-            klasse = uriClass;
+        	klasse = uriClass;
         }
         if (uriWeek != null) {
-            schoolWeek = uriWeek;
+        	schoolWeek = uriWeek;
         }
         if (uriClass == null && uriWeek == null) {
-            window.location.pathname = "";
-            window.location.href=window.location.href + "?woche=" + schoolWeek + "&klasse=" + klasse;
-            //window.location.reload(false);
+        	window.location.pathname = "";
+        	window.location.href = window.location.href + "?woche=" + schoolWeek + "&klasse=" + klasse;
+        	//window.location.reload(false);
         }
 
         loadPage();
 
         function loadPage() {
-            $("#weektask").html(schoolWeek);
-            $("#dropdownKlasse").html(klasse);
-            PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20"+ schoolWeek +".pdf";
+        	$("#weektask").html(schoolWeek);
+        	$("#dropdownKlasse").html(klasse);
+        	PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20" + schoolWeek + ".pdf";
         
-            var iframe = document.getElementById('frame_pdf');
-            iframe.src = PDFLINK;
-            iframe.src = iframe.src;
-            
-            var button = document.getElementById('toPDF');
-            button.href = PDFLINK;
-            button.href = button.href;
+        	var iframe = document.getElementById('frame_pdf');
+        	iframe.src = PDFLINK;
+        	iframe.src = iframe.src;
+        
+        	var button = document.getElementById('toPDF');
+        	button.href = PDFLINK;
+        	button.href = button.href;
         }
 
         function changeWeek(forwards) {
-            if (forwards) {
-                schoolWeek++;
-            } else {
-                schoolWeek--;
-            }
-
-            replacePDF();
+        	if (forwards) {
+        		schoolWeek++;
+        	} else {
+        		schoolWeek--;
+        	}
+        
             //refreshPage();
+        	replacePDF();
         }
 
         function changeClass(neueKlasse) {
-            console.log(neueKlasse)
-            klasse = neueKlasse;
-            console.log(klasse);
-
-            //refreshPage();
-            replacePDF();
+        	console.log(neueKlasse)
+        	klasse = neueKlasse;
+        	console.log(klasse);
+        
+        	//refreshPage();
+        	replacePDF();
         }
 
         //obsolete function
         function refreshPage() {
-            window.location.href=window.location.href.split("?")[0] + "?woche=" + schoolWeek + "&klasse=" + klasse;            
+        	window.location.href = window.location.href.split("?")[0] + "?woche=" + schoolWeek + "&klasse=" + klasse;
         }
 
         function replacePDF() {
-            history.replaceState("","","?woche=" + schoolWeek + "&klasse=" + klasse);
-            loadPage();
+        	history.replaceState("", "", "?woche=" + schoolWeek + "&klasse=" + klasse);
+        	loadPage();
         }
 
         function getWeekNumber(d) {
-            // Copy date so don't modify original
-            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-            // Set to nearest Thursday: current date + 4 - current day number
-            // Make Sunday's day number 7
-            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
-            // Get first day of year
-            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-            // Calculate full weeks to nearest Thursday
-            var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
-            // Return array of year and week number
-            return [d.getUTCFullYear(), weekNo];
+        	// Copy date so don't modify original
+        	d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        	// Set to nearest Thursday: current date + 4 - current day number
+        	// Make Sunday's day number 7
+        	d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+        	// Get first day of year
+        	var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        	// Calculate full weeks to nearest Thursday
+        	var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        	// Return array of year and week number
+        	return [d.getUTCFullYear(), weekNo];
         }
-
     </script>
     
 </body>
