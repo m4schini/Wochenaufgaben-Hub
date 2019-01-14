@@ -102,7 +102,9 @@
         console.log("cal_week: " + calenderWeek);
         var schoolWeek = calenderWeek - firstSchoolWeek;
         if (schoolWeek < 0) {
-        	schoolWeek = (53 - firstSchoolWeek);
+            console.log("sch_week: " + schoolWeek)
+        	schoolWeek = 51 - firstSchoolWeek + calenderWeek;
+            console.log("adapted for new year")
         }
         var klasse = 13;
         console.log("sch_week: " + schoolWeek);
@@ -111,6 +113,7 @@
         var uriWeek = url.searchParams.get("woche");
 
         var PDFLINK = "https://www.bildung-bedeutet-freiheit.de/week/" + klasse + "/Klasse%20" + klasse + "%20Woche%20" + schoolWeek + ".pdf";
+        console.log(PDFLINK);
 
         if (uriClass != null) {
         	klasse = uriClass;
@@ -187,21 +190,7 @@
         	return [d.getUTCFullYear(), weekNo];
         }
 
-        function postData(input) {
-            $.ajax({
-                type: "POST",
-                url: "schuljahr.py",
-                data: {}, // param: input 
-                success: callbackFunc
-            });
-        }
-
-        function callbackFunc(response) {
-            // do something with the response
-            console.log(response);
-        }
-
-        postData('data to process');
+        
     </script>
     
 </body>
